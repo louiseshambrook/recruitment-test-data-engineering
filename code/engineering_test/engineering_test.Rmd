@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+# loading in libraries
+library(tidyverse)
+library(jsonlite)
+```
+
+```{r}
+# loading in data
+people <- read_csv("data/people.csv")
+places <- read_csv("data/places.csv")
+```
+
+The problem / question:
+Create a Docker image for outputting a summary of content in the database. You may implement this using a programming language of your choice.
+
+The output must be in JSON format, and be written to a file in the data folder called data/summary_output.json. It should consist of a list of the countries, and a count of how many people were born in that country. We have supplied a sample output data/sample_output.json to compare your file against.
+
+```{r}
+# to be able to join the datasets, renaming place_of_birth on the people dataset
+people <- people %>%
+  rename(city = "place_of_birth")
+
+# joining the tables, using an inner join to include all rows in both datasets
+people_places <- people %>%
+  inner_join(places, by = "city")
+```
+
+```{r}
+# wrangling and making the total count
+summary_people_places <- people_places %>%
+  group_by(country) %>%
+  count()
+```
+
+```{r}
+write_json(summary_people_places, "data/summary_people.places.json", pretty = FALSE)
+```
+
