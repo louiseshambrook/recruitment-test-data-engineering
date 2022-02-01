@@ -30,13 +30,13 @@ people_places <- people %>%
 ```
 
 ```{r}
-# wrangling and making the total count
+# wrangling and calculating the total count
 summary_people_places <- people_places %>%
   group_by(country) %>%
   count()
 ```
 
 ```{r}
-write_json(summary_people_places, "data/summary_people.places.json", pretty = FALSE)
+write_json(summary_people_places, "data/summary_output.json", pretty = FALSE)
 ```
 

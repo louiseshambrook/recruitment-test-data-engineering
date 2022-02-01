@@ -36,4 +36,4 @@ res <- dbSendQuery(database, "select * from examples")
 output = dbFetch(res)
 dbClearResult(res)
 
-write_json(summary_people_places, '/data/example_r.json', pretty = FALSE)
+write_json(summary_people_places, 'data/summary_output.json', pretty = FALSE)
